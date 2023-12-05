@@ -3,9 +3,11 @@
   nixos-hardware,
   system,
 }:
-(import "${nixpkgs}/nixos" {
-  inherit system;
-  configuration = import ../packages/sd-image.nix {inherit nixos-hardware;};
+(nixpkgs.lib.nixosSystem {
+  modules = [
+    "${nixos-hardware}/starfive/visionfive/v2/sd-image-installer.nix"
+    (import ../packages/sd-image.nix {inherit nixos-hardware system;})
+  ];
 })
 .config
 .system

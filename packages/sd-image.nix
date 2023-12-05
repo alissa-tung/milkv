@@ -1,13 +1,15 @@
-{nixos-hardware}: {
+{
+  nixos-hardware,
+  system,
+}: {
   config,
   pkgs,
   ...
 }: {
   sdImage.compressImage = false;
-  imports = ["${nixos-hardware}/starfive/visionfive/v2/sd-image-installer.nix"];
-  nixpkgs.crossSystem = {
-    config = "riscv64-unknown-linux-gnu";
-    system = "riscv64-linux";
+  nixpkgs = {
+    localSystem.config = system;
+    crossSystem.config = "riscv64-unknown-linux-gnu";
   };
   system.stateVersion = "24.05";
 
